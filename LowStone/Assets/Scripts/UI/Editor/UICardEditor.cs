@@ -1,27 +1,27 @@
-﻿using UnityEditor;
-using UnityEditor.UI;
+﻿//using UnityEditor;
+//using UnityEditor.UI;
 
-namespace Lowstone.UI
-{
-    [CustomEditor(typeof(UICard), true)]
-    [CanEditMultipleObjects]
-    public class UICardEditor : Editor
-    {
-        SerializedProperty ManaCostTextPro;
+//namespace Lowstone.UI
+//{
+//    [CustomEditor(typeof(UICard), true)]
+//    [CanEditMultipleObjects]
+//    public class UICardEditor : Editor
+//    {
+//        SerializedProperty ManaCostTextPro;
 
 
-        void OnEnable()
-        {
-            ManaCostTextPro = serializedObject.FindProperty("ManaCostText");
-        }
+//        void OnEnable()
+//        {
+//            ManaCostTextPro = serializedObject.FindProperty("ManaCostText");
+//        }
 
-        public override void OnInspectorGUI()
-        {
-            serializedObject.Update();
+//        public override void OnInspectorGUI()
+//        {
+//            serializedObject.Update();
 
-            EditorGUILayout.PropertyField(ManaCostTextPro);
+//            EditorGUILayout.PropertyField(ManaCostTextPro);
 
-            serializedObject.ApplyModifiedProperties();
-        }
-    }
-}
+//            serializedObject.ApplyModifiedProperties();
+//        }
+//    }
+//}

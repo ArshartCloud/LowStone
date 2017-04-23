@@ -15,43 +15,43 @@ namespace Lowstone.UI
         
         public static AnimationManager Instance;
 
-        private Queue<LSAnimation> anis = new Queue<LSAnimation>();
-        private LSAnimation currentAni;
-        private State state;
+        private Queue<LSAnimation> m_anis = new Queue<LSAnimation>();
+        private LSAnimation m_currentAni;
+        private State m_state;
         //private static AnimationManager _instance;
 
         void Start()
         {
             Instance = this;
-            state = State.Idle;
+            m_state = State.Idle;
         }
 
         void Update()
         {
-            if (state == State.Run)
+            if (m_state == State.Run)
             {
-                if (currentAni != null) currentAni.Update();
+                if (m_currentAni != null) m_currentAni.Update();
             }
         }
 
         public void AddAnimation(LSAnimation ani)
         {
             ani.callbacks.Add(AnimationFinish);
-            anis.Enqueue(ani);
-            if (state == State.Idle) PlayAnimation();
+            m_anis.Enqueue(ani);
+            if (m_state == State.Idle) PlayAnimation();
         }
 
         private void PlayAnimation() { 
-            state = State.Run;
-            currentAni = anis.Dequeue();
-            currentAni.Start();
+            m_state = State.Run;
+            m_currentAni = m_anis.Dequeue();
+            m_currentAni.Start();
         }
 
         private void AnimationFinish()
         {
-            if (anis.Count == 0)
+            if (m_anis.Count == 0)
             {
-                state = State.Idle;
+                m_state = State.Idle;
             } else
             {
                 PlayAnimation();
