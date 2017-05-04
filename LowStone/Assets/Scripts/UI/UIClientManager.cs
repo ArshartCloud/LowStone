@@ -31,13 +31,27 @@ namespace Lowstone.UI
             LSAnimation delay = AnimationFactory.Instance.CreatDelay(0.2f);
             AnimationManager.Instance.AddAnimation(delay);
 
-            PlayerHand.AddNewCard(cardObject);
+            cardObject.AddComponent<HandDrag>();
+            PlayerHand.Add(cardObject.GetComponent<UICard>());
+        }
+
+        public void PlayCard(Card card)
+        {
+            UICard uic;
+            if (UIManager.Instence.UICardMap.ContainsKey(card))
+            {
+                uic = UIManager.Instence.UICardMap[card];
+            } else {
+                uic = UICardFactory.Instance.CreatCard(card);
+            }
+            Board.AddMinion(uic);
         }
 
         public void UseMinion(UICard minion)
         {
 
         }
+
 
         //public void DrawCard(int num)
         //{

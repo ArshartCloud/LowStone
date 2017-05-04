@@ -16,8 +16,13 @@ namespace Lowstone.UI
 
         void Awake()
         {
-            handRectTransform = transform.parent as RectTransform;
 
+        }
+
+        void Start()
+        {
+
+            handRectTransform = transform.parent as RectTransform;
         }
 
         public void OnPointerDown(PointerEventData data)
@@ -54,12 +59,20 @@ namespace Lowstone.UI
                     transform.localRotation = originalLocalRotation;
                     transform.localScale = originalLocalScale;
                 }
-            } else
-            {
-                //otherwize, use it.
-                UICard card = GetComponent<UICard>();
-                if (card != null)
-                    UIManager.Instence.PlayerUseCard(card);
+                else
+                {
+                    //otherwize, use it.
+                    //if need choose one
+                    //if need target
+
+                    UICard card = GetComponent<UICard>();
+                    if (card != null)
+                    {
+                        Debug.Log("Player Askfor use Card");
+                        UIPlayerAction.Instence.PlayCard(card);
+                        Destroy(this);
+                    }
+                }
             }
         }
     }

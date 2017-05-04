@@ -106,11 +106,13 @@ public class GameController : MonoBehaviour {
     public void PlayMinion(Player user, Card card)
     {
         user.PlayerHand.Remove(card);
-        user.PlayerBattlefield.Add(card);
+        user.PlayerBattlefield.Insert(user.PlayerBattlefield.Count, card);
         PlayEventData data = new PlayEventData();
         data.user = user;
         data.card = card;
         data.position = 0;
+
+        Debug.Log("Player " + user.ToString() + " play a card " + card.ToString());
         EventDispatcher.TriggerEvent(EventEnum.PlayMinion, data);
         // trigger onplay
         // trigger battlecry

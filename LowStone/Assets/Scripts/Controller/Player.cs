@@ -18,8 +18,6 @@ public class Player {
 
     public void DrawCard()
     {
-        Debug.Log(PlayerHand.Count);
-        Debug.Log(PlayerHand.MaxSize);
         if (PlayerHand.Count < PlayerHand.MaxSize)
         {
             //TODO

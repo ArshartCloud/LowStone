@@ -33,7 +33,9 @@ namespace Lowstone.UI
                 go.GetComponent<UICard>().SetCard(card);
                 go.SetActive(true);
             }
-            return go.GetComponent<UICard>();
+            UICard uic = go.GetComponent<UICard>();
+            UIManager.Instence.LinkCard(card, uic);
+            return uic;
         }
 
         public UICard CreatCard(Card card, Transform CardPos)
@@ -44,11 +46,21 @@ namespace Lowstone.UI
             return uiCard;
         }
 
-        public void Remove(UICard uiCard)
+        public UICard CreatCard(Card card, Transform CardPos, Transform parent)
         {
+            UICard uiCard = CreatCard(card, CardPos);
+            uiCard.gameObject.transform.parent = parent;
+            return uiCard;
+        }
+
+        public void Remove(Card card)
+        {
+            UICard uiCard = UIManager.Instence.UICardMap[card];
             GameObject go = uiCard.gameObject;
             go.SetActive(false);
             UnusedCard.Add(uiCard);
+
+            UIManager.Instence.Delink(card);
         }
     }
 }

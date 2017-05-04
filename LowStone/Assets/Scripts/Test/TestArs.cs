@@ -15,7 +15,6 @@ public class TestArs : MonoBehaviour {
         if (trigger)
         {
             counter++;
-            Debug.Log(counter);
             //trigger = false;
         }		
 	}

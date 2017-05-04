@@ -17,17 +17,27 @@ namespace Lowstone.UI
         public UIClientManager PlayerUI;
         public UIOpponentManager OpponentUI;
 
-        public bool CanAct;
+        //public bool CanAct;
+        public Dictionary<Card, UICard> UICardMap
+        {
+            get { return m_UICardMap; }
+        }
 
-        private Dictionary<Card, UICard> m_UICard;
+        private Dictionary<Card, UICard> m_UICardMap = new Dictionary<Card, UICard>();
+
+        void Awake()
+        {
+            Instence = this;
+        }
 
         void Start()
         {
             //PlayerUI = new UIClientManager();
             //OpponentUI = new UIOpponentManager();
-            EventDispatcher.AddEventListener<DrawEventData>(EventEnum.DrawCard, Drawed);
+            EventDispatcher.AddEventListener<DrawEventData>(EventEnum.DrawCard, DrawCard);
             EventDispatcher.AddEventListener<StartGameEventData>(EventEnum.StartGame, StartGame);
             EventDispatcher.AddEventListener(EventEnum.EnterMainPhase, EnterMainTurn);
+            EventDispatcher.AddEventListener<PlayEventData>(EventEnum.PlayMinion, PlayCard);
         }
 
         public void PlayerUseCard(UICard card) {
@@ -60,10 +70,15 @@ namespace Lowstone.UI
 
         public void LinkCard(Card card, UICard uic)
         {
-            m_UICard.Add(card, uic);
+            m_UICardMap.Add(card, uic);
         }
 
-        private void Drawed(DrawEventData data)
+        public void Delink(Card card)
+        {
+            m_UICardMap.Remove(card);
+        }
+
+        private void DrawCard(DrawEventData data)
         {
             if (data.player == PlayerUI.Player)
             {
@@ -82,9 +97,19 @@ namespace Lowstone.UI
         {
             if (gameController.currentPlayer == User)
             {
-                CanAct = true;
+                //CanAct = true;
             }
         }
+
+        private void PlayCard(PlayEventData data)
+        {
+            if (data.user == PlayerUI.Player)
+            {
+                //todo
+                PlayerUI.PlayCard(data.card);
+            }
+        }
+
 
         private void EnterPlayerMainTurn() { }
 

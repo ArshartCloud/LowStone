@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lowstone.UI;
 
-namespace Lowstone.UI
+namespace Lowstone
 {
     public class UIPlayerAction : MonoBehaviour
     {
@@ -14,19 +15,24 @@ namespace Lowstone.UI
             }
         }
 
+        public Player Player
+        {
+            get { return UIManager.Instence.PlayerUI.Player; }
+        }
+
         private static UIPlayerAction m_instence;
 
-        void Start()
+        void Awake()
         {
             m_instence = this;
         }
 
-        public void UseCard(UICard card)
+        public void PlayCard(UICard card)
         {
-
+            GameController.Instence.PlayMinion(Player, card.card);
         }
 
-        public void UseCard(UICard card, int position) { }
+        public void PlayCard(UICard card, int position) { }
         //public void UseCard(UICard card, UICard target) { }
         //public void UseCard(UICard card, int position, UICard target) { }
 
@@ -34,5 +40,6 @@ namespace Lowstone.UI
 
         public void EndTurn() { }
 
+        public void UseHeroPower(UICard card) { }
     }
 }

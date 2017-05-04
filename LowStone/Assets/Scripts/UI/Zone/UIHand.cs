@@ -5,11 +5,11 @@ using UnityEngine.Assertions;
 
 namespace Lowstone.UI
 {
-    public class UIHand : MonoBehaviour
+    public class UIHand : UIZone
     {
-        public const int MAX_HANDSIZE = 10;
+        //public int MAXSIZE = 10;
 
-        public List<Transform> HandCardPos;
+        //public List<Transform> HandCardPos;
 
         public List<UICard> Hands
         {
@@ -29,10 +29,15 @@ namespace Lowstone.UI
 
         private List<UICard> m_hands = new List<UICard>();
 
+        void Start()
+        {
+            MAXSIZE = 10; 
+        }
+
         public Transform GetNewCardPostion()
         {
             //TODO
-            return HandCardPos[1];
+            return CardPos[1];
         }
 
         /// <summary>
@@ -40,11 +45,13 @@ namespace Lowstone.UI
         /// Adjust the position of all hand cards.
         /// </summary>
         /// <param name="go"></param>
-        public void AddNewCard(GameObject go)
+        public override void Add(UICard card)
         {
-            Assert.IsTrue(Hands.Count < MAX_HANDSIZE);
+            
+            Assert.IsTrue(Hands.Count < MAXSIZE);
 
-            UICard card = go.GetComponent<UICard>();
+            //UICard card = go.GetComponent<UICard>();
+            GameObject go = card.gameObject;
             Hands.Add(card);
             int firstInd = GetFirstCardIndex();
 
@@ -53,14 +60,14 @@ namespace Lowstone.UI
                 MultiAnimation moves = new MultiAnimation();
                 for (int i = 0; i < count; ++i)
                 {
-                    Transform targetPos = HandCardPos[firstInd + i];
+                    Transform targetPos = CardPos[firstInd + i];
                     LSAnimation move = AnimationFactory.Instance.CreatMove(Hands[i].gameObject, targetPos);
                     go.transform.SetParent(transform);
                     moves.Add(move);
                 }
                 AnimationManager.Instance.AddAnimation(moves);
             }
-            Transform targetPos2 = HandCardPos[firstInd + count - 1];
+            Transform targetPos2 = CardPos[firstInd + count - 1];
             LSAnimation move2 = AnimationFactory.Instance.CreatMove(go, targetPos2);
             go.transform.SetParent(transform);
             AnimationManager.Instance.AddAnimation(move2);
@@ -68,7 +75,7 @@ namespace Lowstone.UI
 
         private int GetFirstCardIndex()
         {
-            return (MAX_HANDSIZE - count) / 2;
+            return (MAXSIZE - count) / 2;
         }
     }
 }

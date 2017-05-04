@@ -23,7 +23,9 @@ namespace Lowstone.UI
 
         public GameObject GetNewCard(Card card)
         {
-            GameObject go = Instantiate(CardPrefab, DeckPos.position, DeckPos.rotation, transform);
+            UICard uic = UICardFactory.Instance.CreatCard(card, DeckPos, transform);
+            GameObject go = uic.gameObject;
+            //GameObject go = Instantiate(CardPrefab, DeckPos.position, DeckPos.rotation, transform);
             go.GetComponent<UICard>().SetCard(card);
             go.SetActive(true);
             return go;

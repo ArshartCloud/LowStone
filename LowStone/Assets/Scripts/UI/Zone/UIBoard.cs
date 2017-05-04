@@ -6,6 +6,7 @@ namespace Lowstone.UI
 {
     public class UIBoard : MonoBehaviour
     {
+
         public const int MAX_MINION_SIZE = 7;
         public int MinionNum
         {
@@ -14,29 +15,30 @@ namespace Lowstone.UI
                 return Minions.Count;
             }
         }
-        public List<UIMinion> Minions
-        {
-            get
-            {
-                return m_minions;
-            }
-        }
-        public List<Transform> MinionPos
-        {
-            get
-            {
-                return m_minionPos;
-            }
-        }
+        public List<Transform> MinionPos;
 
-        private List<UIMinion> m_minions = new List<UIMinion>();
-        private List<Transform> m_minionPos = new List<Transform>();
+        public List<UICard> Minions = new List<UICard>();
+        //public Battlefield board;
+
+        //private List<UIMinion> m_minions = new List<UIMinion>();
+        //public List<Transform> minion_Pos;
 
         public void AddMinion(UICard minion)
         {
             AddMinion(minion, MinionNum);
         }
 
-        public void AddMinion(UICard minion, int position) { }
+        public void AddMinion(UICard minion, int position) {
+
+            int targetInd = position;
+            Transform targetTrans = MinionPos[targetInd];
+            //need animation
+            minion.transform.position = targetTrans.position;
+            minion.transform.rotation = targetTrans.rotation;
+            minion.transform.localScale = targetTrans.localScale;
+            minion.transform.SetParent(transform);
+
+            Minions.Add(minion);
+        }
     }
 }

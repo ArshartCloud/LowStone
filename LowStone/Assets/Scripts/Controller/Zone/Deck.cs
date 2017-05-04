@@ -15,6 +15,8 @@ public class Deck:Zone {
     //TEST TODO
     public Card Pop()
     {
-        return Cards[0];
+        Card top = Cards[0];
+        Cards.RemoveAt(0);
+        return top;
     }
 }

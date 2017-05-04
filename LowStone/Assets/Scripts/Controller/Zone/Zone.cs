@@ -36,28 +36,29 @@ public class Zone {
 
     public Zone() { }
 
-    public void Add(Card card)
+    public virtual void Add(Card card)
     {
         Cards.Add(card);
     }
 
-    public void Insert(int index, Card card)
+    public virtual void Insert(int index, Card card)
     {
         Cards.Insert(index, card);
     }
 
-    public bool Contains(Card card)
+    public virtual bool Contains(Card card)
     {
         return Cards.Contains(card);
     }
 
-    public void Remove(Card card)
+    public virtual void Remove(Card card)
     {
         Cards.Remove(card);
     }
 
-    public bool IsFull()
+    public virtual bool IsFull()
     {
         return Count >= MaxSize;
     }
+
 }
